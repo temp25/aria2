@@ -43,7 +43,8 @@ before_script:
   - autoreconf -i
   - automake
   - autoconf
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then ./configure --without-openssl --without-gnutls --with-appletls --disable-nls CPPFLAGS=-fsanitize=address LDFLAGS=-fsanitize=address; fi
-  - if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then ./configure CPPFLAGS=-fsanitize=address LDFLAGS="-fsanitize=address -fuse-ld=gold"; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then ./configure ARIA2_STATIC=yes --without-openssl --without-gnutls --with-appletls --disable-nls CPPFLAGS=-fsanitize=address LDFLAGS=-fsanitize=address; fi
+  - if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then ./configure ARIA2_STATIC=yes CPPFLAGS=-fsanitize=address LDFLAGS="-fsanitize=address -fuse-ld=gold"; fi
 script:
   - make CC="ccache $CC" CXX="ccache $CXX" check
+  - ls -lah
